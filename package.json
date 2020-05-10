@@ -1,0 +1,20 @@
+{
+  "name": "node_exp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "uuid": "^8.0.0"
+  },
+  "devDependencies": {
+    "express-handlebars": "^4.0.4",
+    "nodemon": "^2.0.3"
+  },
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
