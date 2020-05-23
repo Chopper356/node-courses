@@ -1,1 +1,31 @@
-<h1>{{title}}</h1>
+<h1>Cart</h1>
+
+<div id="card">
+
+	{{#if courses.length}}
+		{{#each courses}}
+			<div class="main">
+				<div class="image">
+					<img src="{{image}}" alt="{{title}}">
+				</div>
+				<div class="course-title">
+					{{title}}
+				</div>
+				<div class="price">
+					<div class="count">Count: {{count}}</div>
+					<div>
+						Price: <span>{{price}}</span> 
+					</div>
+				</div>
+				<button class="btn btm-primary cart-btn js-remove" data-id="{{id}}">Delete</button>
+			</div>
+		{{/each}}
+
+		<div class="all-price">
+			Price: <span>{{@root.price}}</span> 
+		</div>
+	{{else}}
+		<p>Cart is empty!</p>
+	{{/if}}
+
+</div>

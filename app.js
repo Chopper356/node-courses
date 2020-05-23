@@ -21,13 +21,13 @@ app.set("view engine", "hbs");
 //Куда буду сохраняться файлы
 app.set("views", "views");
 
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({extended: true}));
 
 app.use("/", homeRoutes);
 app.use("/courses", coursesRoutes);
 app.use("/add", addRoutes);
-app.use("/add", cardRoutes);
+app.use("/card", cardRoutes);
 
 app.listen(PORT, () => {
 	console.log(`Server is starting on port: ${PORT}`)
