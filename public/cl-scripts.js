@@ -1,10 +1,13 @@
-document.querySelectorAll('#card .price span, #card .all-price span, .row .price span').forEach( node => {
-	node.textContent = new Intl.NumberFormat('ru-RU', {
+const toCurrency = price => {
+	return new Intl.NumberFormat('ru-RU', {
 		currency: 'USD',
 		style: 'currency'
-	}).format(parseInt(node.textContent));
-});
+	}).format(parseInt(price));
+}
 
+document.querySelectorAll('#card .price span, #card .all-price span, .row .price span').forEach( node => {
+	node.textContent = toCurrency(node.textContent);
+});
 
 const $card = document.querySelector("#card");
 
@@ -30,7 +33,7 @@ if ($card) {
 								<div class="price">
 									<div class="count">Count: ${c.count}</div>
 									<div>
-										Price: <span>${c.price}</span> 
+										Price: <span>${toCurrency(c.price)}</span> 
 									</div>
 								</div>
 								<button class="btn btm-primary cart-btn js-remove" data-id="${c.id}">Delete</button>
@@ -38,8 +41,10 @@ if ($card) {
 							`
 						}).join("");
 
-						$card.querySelector('.main').innerHTML = html;
-						$card.querySelector(".all-price").innerHTML = card.price
+						document.querySelectorAll(".main").forEach(el => el.remove());
+
+						$card.insertAdjacentHTML('afterbegin', html);
+						$card.querySelector(".all-price").innerHTML = toCurrency(card.price);
 					} 
 					else {
 						$card.innerHTML = "<p>Cart is empty!</p>"

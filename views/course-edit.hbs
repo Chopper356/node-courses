@@ -19,7 +19,12 @@
 		<span class="helper-text" data-error="Insert image!"></span>
 	</div>
 
-	<input type="hidden" name="id" value="{{course.id}}">
+	<input type="hidden" name="_id" value="{{course._id}}">
 
-	<button class="btn btm-primary">Submit</button>
+	<button type="submit" class="btn btm-primary btn-submit">Submit</button>
+</form>
+
+<form action="/courses/remove" method="POST">
+	<input type="hidden" name="_id" value="{{course._id}}">
+	<button type="submit" class="btn btm-primary btn-delete btn-submit">Delete</button>
 </form>

@@ -97,3 +97,17 @@
 	margin-right: 20px;
 	background-color: #eb4d4b;
 }
+
+.btn-delete {
+	background-color: #e74c3c;
+	margin-top: 10px;
+	transition: all 0.25s;
+}
+
+.btn-delete:hover {
+	background-color: #dd3825;
+}
+
+.btn-submit {
+	width: 85px;
+}

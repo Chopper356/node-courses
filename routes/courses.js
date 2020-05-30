@@ -3,7 +3,7 @@ const Course = require("../models/course")
 const router = Router();
 
 router.get("/", (req, res) => {
-	Course.getAll().then(courses => {
+	Course.find().lean().then(courses => {
 		res.render("courses.hbs", {
 			title: "Courses",
 			isCourses: true,
@@ -19,7 +19,7 @@ router.get("/:id/edit", async (req, res) => {
 		return res.redirect("/")
 	}
 
-	let course = await Course.getById(req.params.id)
+	const course = await Course.findById(req.params.id).lean()
 
 	res.render("course-edit", {
 		title: `Edit ${course.title}`,
@@ -28,18 +28,31 @@ router.get("/:id/edit", async (req, res) => {
 });
 
 router.post("/edit", async (req, res) => {
-	await Course.update(req.body);
+	const {_id} = req.body;
+	delete req.body._id;
+	await Course.findByIdAndUpdate(_id, req.body).lean();
 
 	res.redirect(`/courses`)
 })
 
 router.get("/:id", async (req, res) => {
-	let course = await Course.getById(req.params.id)
+	const course = await Course.findById(req.params.id).lean();
 	res.render("course", {
 		layout: 'empty',
 		title: `Course ${course.title}`,
 		course
 	})
+});
+
+router.post("/remove", async (req, res) => {
+	try {
+		await Course.deleteOne({_id: req.body._id});
+		res.redirect("/courses");
+	}
+	catch(err) {
+		console.log(err)
+	}
+
 });
 
 module.exports = router
