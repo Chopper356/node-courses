@@ -1,0 +1,26 @@
+<h1>My Orders</h1>
+
+{{#if orders.length}}
+	<div class="orders-wrapper">
+		{{#each orders}}
+			<div class="order">
+				<img class="logo" src="https://img.icons8.com/pastel-glyph/100/000000/shopping-cart--v1.png" alt="Cart">
+				<div class="info">
+					<div class="order-id">Order: <span>{{_id}}</span></div>
+					<div class="date">Date: <span>{{date}}</span></div>
+					<div class="name">Name: <span>{{user.userId.name}}</span></div>
+					<div class="email">Email: <span>{{user.userId.email}}</span></div>
+				</div>
+				<div class="prod">Products:</div>
+				<ol>
+					{{#each courses}}
+						<li class="orders">{{course.title}} (x <strong>{{count}}</strong>)</li>
+					{{/each}}
+				</ol>
+				<div class="price">Price: <span>{{price}}</span></div>
+			</div>
+		{{/each}}
+	</div>
+{{else}}
+	<p>Your orders were not found.</p>
+{{/if}}

@@ -5,7 +5,7 @@ const toCurrency = price => {
 	}).format(parseInt(price));
 }
 
-document.querySelectorAll('#card .price span, #card .all-price span, .row .price span').forEach( node => {
+document.querySelectorAll('#card .price span, #card .all-price span, .row .price span, .order .price span').forEach( node => {
 	node.textContent = toCurrency(node.textContent);
 });
 

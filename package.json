@@ -5,6 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "express": "^4.17.1",
+    "moment": "^2.26.0",
     "mongoose": "^5.9.15",
     "uuid": "^8.0.0"
   },

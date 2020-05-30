@@ -111,3 +111,84 @@
 .btn-submit {
 	width: 85px;
 }
+
+.order-form {
+	text-align: end;
+	margin-top: 15px;
+}
+
+.orders-wrapper {
+	flex-wrap: wrap;
+	display: flex;
+}
+
+.order {
+	margin-left: 20px;
+	width: 300px;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+}
+
+.order:first-child {
+	margin-left: 0px;
+}
+
+.order .logo {
+	height: 100px;
+    width: 100px;
+    display: block;
+    margin: 10px auto;
+}
+
+.order span {
+	font-weight: 400;
+}
+
+.order .info {
+	font-weight: 600;
+	background-color: rgba(0, 0,0,0.05);
+    padding: 10px 20px;
+    border-top: 1px solid rgba(0, 0,0,0.1);
+    border-bottom: 1px solid rgba(0, 0,0,0.1);
+}
+
+.order .prod {
+	text-align: center;
+    font-size: 18px;
+	font-weight: 600;
+	padding: 10px 0px;
+}
+
+.order ol {
+	margin-top: inherit;
+	height: 70px;
+	overflow: auto;
+	margin-right: 5px;
+}
+
+.order .price {
+	padding: 20px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* width */
+.order ol::-webkit-scrollbar {
+	width: 5px;
+	
+  }
+  
+/* Track */
+.order ol::-webkit-scrollbar-track {
+background: #f1f1f1; 
+}
+
+/* Handle */
+.order ol::-webkit-scrollbar-thumb {
+background: #888; 
+border-radius: 10px;
+}
+
+/* Handle on hover */
+.order ol::-webkit-scrollbar-thumb:hover {
+background: #555; 
+}

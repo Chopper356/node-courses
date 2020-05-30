@@ -24,6 +24,10 @@
 		<div class="all-price">
 			Price: <span>{{@root.price}}</span> 
 		</div>
+
+		<form class="order-form" action="/orders" method="POST">
+			<button type="submit" class="btn">To order</button>
+		</form>
 	{{else}}
 		<p>Cart is empty!</p>
 	{{/if}}

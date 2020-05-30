@@ -1,5 +1,5 @@
 const express = require("express")
-const exphbs = require("express-handlebars")
+const exphbs = require("express-handlebars");
 const path = require("path");
 const PORT = process.env.PORT || 3000
 const app = express();
@@ -7,9 +7,10 @@ const mongoose = require('mongoose');
 
 const homeRoutes = require("./routes/home");
 const cardRoutes = require("./routes/card");
-const coursesRoutes = require("./routes/courses");
 const addRoutes = require("./routes/add");
 const User = require("./models/user");
+const coursesRoutes = require("./routes/courses");
+const ordersRoutes = require("./routes/orders");
 
 const hbs = exphbs.create({
 	defaultLayout: "main",
@@ -45,6 +46,7 @@ app.use("/", homeRoutes);
 app.use("/courses", coursesRoutes);
 app.use("/add", addRoutes);
 app.use("/card", cardRoutes);
+app.use("/orders", ordersRoutes);
 
 async function start() {
 
