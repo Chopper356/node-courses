@@ -4,6 +4,7 @@ const path = require("path");
 const PORT = process.env.PORT || 3000
 const app = express();
 const mongoose = require('mongoose');
+const session = require("express-session");
 
 const homeRoutes = require("./routes/home");
 const cardRoutes = require("./routes/card");
@@ -11,6 +12,8 @@ const addRoutes = require("./routes/add");
 const User = require("./models/user");
 const coursesRoutes = require("./routes/courses");
 const ordersRoutes = require("./routes/orders");
+const authRoutes = require("./routes/auth");
+const varMidleware = require("./middleware/variables");
 
 const hbs = exphbs.create({
 	defaultLayout: "main",
@@ -19,17 +22,6 @@ const hbs = exphbs.create({
 	allowedProtoProperties: true,
 	allowProtoMethodsByDefault: true
 
-});
-
-app.use( async (req, res, next) => {
-	try {
-		const user = await User.findById("5ed04e0f5e6343241ced2a8b");
-		req.user = user;
-		next();
-	}
-	catch(err) {
-		console.log(err)
-	}
 });
 
 //Регистрация в express что у нас есть движок handlebars
@@ -41,12 +33,19 @@ app.set("views", "views");
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({extended: true}));
+app.use(session({
+	secret: "vlas lox",
+	resave: false,
+	saveUninitialized: false
+}));
+app.use(varMidleware);
 
 app.use("/", homeRoutes);
 app.use("/courses", coursesRoutes);
 app.use("/add", addRoutes);
 app.use("/card", cardRoutes);
 app.use("/orders", ordersRoutes);
+app.use("/auth", authRoutes);
 
 async function start() {
 
@@ -58,19 +57,7 @@ async function start() {
 			useUnifiedTopology: true,
 			useFindAndModify: false
 		});
-	
-		const candidate = await User.findOne();
-
-		if(!candidate) {
-			const user = new User({
-				email: "vedmedenko@gmail.com",
-				name: "Nikita",
-				cart: { items: [] }
-			});
-
-			await user.save();
-		}
-
+		
 		app.listen(PORT, () => {
 			console.log(`Server is starting on port: ${PORT}`)
 		});
