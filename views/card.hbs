@@ -17,7 +17,7 @@
 						Price: <span>{{price}}</span> 
 					</div>
 				</div>
-				<button class="btn btm-primary cart-btn js-remove" data-id="{{_id}}">Delete</button>
+				<button class="btn btm-primary cart-btn js-remove" data-id="{{_id}}" data-csrf="{{@root.csrf}}">Delete</button>
 			</div>
 		{{/each}}
 
@@ -26,6 +26,7 @@
 		</div>
 
 		<form class="order-form" action="/orders" method="POST">
+			<input type="hidden" name="_csrf" value="{{csrf}}">
 			<button type="submit" class="btn">To order</button>
 		</form>
 	{{else}}

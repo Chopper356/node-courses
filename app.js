@@ -1,6 +1,7 @@
 const express = require("express")
 const exphbs = require("express-handlebars");
 const path = require("path");
+const csrf = require("csurf");
 const PORT = process.env.PORT || 3000
 const app = express();
 const mongoose = require('mongoose');
@@ -48,6 +49,7 @@ app.use(session ({
 	saveUninitialized: false,
 	store
 }));
+app.use(csrf());
 app.use(varMidleware);
 app.use(userMiddleWare);
 

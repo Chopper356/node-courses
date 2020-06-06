@@ -14,10 +14,14 @@ const $card = document.querySelector("#card");
 if ($card) {
 	$card.addEventListener('click', function(e) {
 		if(event.target.classList.contains("js-remove")) {
-			const id = event.target.dataset.id
+			const id = event.target.dataset.id;
+			const csrf = event.target.dataset.csrf;
 			
 			fetch("/card/remove/" + id, {
-				method: "delete"
+				method: "delete",
+				headers: {
+					"X-XSRF-TOKEN": csrf
+				}
 			}).then( res => res.json())
 				.then(card => {
 					if(card.courses.length) {
@@ -36,7 +40,7 @@ if ($card) {
 										Price: <span>${toCurrency(c.price)}</span> 
 									</div>
 								</div>
-								<button class="btn btm-primary cart-btn js-remove" data-id="${c.id}">Delete</button>
+								<button class="btn btm-primary cart-btn js-remove" data-id="${c.id}" data-csrf="${csrf}">Delete</button>
 							</div>
 							`
 						}).join("");
