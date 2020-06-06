@@ -195,3 +195,13 @@
 .auth .tabs {
 	margin-top: 20px;
 }
+
+.not-auth {
+	cursor: pointer;
+	font-weight: 600;
+	transition: all 0.25s;
+}
+
+.not-auth:hover {
+	border-bottom: 1px solid #e74c3c;
+}

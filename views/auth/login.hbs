@@ -11,13 +11,13 @@
 				<form action="/auth/login" method="POST" class="col s12">
 					<div class="row">
 						<div class="input-field col s12">
-							<input id="email" type="email" class="validate" required>
+							<input id="email" name="email" type="email" class="validate" required>
 							<label for="email">Email</label>
 						</div>
 					</div>
 					<div class="row">
 						<div class="input-field col s12">
-							<input id="password" type="password" class="validate" required>
+							<input id="password" name="password" type="password" class="validate" required>
 							<label for="password">Password</label>
 						</div>
 					</div>
@@ -31,24 +31,28 @@
 				<form action="/auth/register" method="POST" class="col s12">
 					<div class="row">
 						<div class="input-field col s6">
-							<input placeholder="Placeholder" id="first_name" type="text" class="validate" required>
-							<label for="first_name">Your login</label>
+							<input placeholder="Your Name" id="name" name="name" type="text" class="validate" required>
+							<label for="name">Your Name</label>
+							<span class="helper-text" data-error="Please enter a name"></span>
 						</div>
 					</div>
 					<div class="row">
 						<div class="input-field col s12">
-							<input id="remail" type="email" class="validate" required>
+							<input id="remail" name="email" type="email" class="validate" required>
 							<label for="remail">Email</label>
+							<span class="helper-text" data-error="Please enter a email"></span>
 						</div>
 					</div>
 					<div class="row">
 						<div class="input-field col s12">
-							<input id="rpassword" type="password" class="validate" required>
+							<input id="rpassword" name="password" type="password" class="validate" required>
 							<label for="rpassword">Password</label>
+							<span class="helper-text" data-error="Please enter a password"></span>
 						</div>
 						<div class="input-field col s12">
-							<input id="rpassword" type="password" class="validate" required>
+							<input id="rpassword" name="confirm" type="password" class="validate" required>
 							<label for="rpassword">Password</label>
+							<span class="helper-text" data-error="Please enter your password again"></span>
 						</div>
 					</div>
 

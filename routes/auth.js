@@ -1,5 +1,6 @@
 const {Router} = require("express");
 const User = require("../models/user");
+const bcrypt = require("bcryptjs");
 
 const router = new Router();
 
@@ -11,16 +12,60 @@ router.get("/login", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-	const user = await User.findById("5ed04e0f5e6343241ced2a8b");
-	req.session.user = user;
-	req.session.isAuthen = true;
-	
-	req.session.save(err => {
-		if(err) {
-			throw err;
+
+	try {
+		const {email, password} = req.body;
+		const candidate = await User.findOne({email});
+
+		if(candidate) {
+			const areSame = await bcrypt.compare(password, candidate.password);
+
+			if(areSame) {
+				req.session.user = candidate;
+				req.session.isAuthen = true;
+				
+				req.session.save(err => {
+					if(err) {
+						throw err;
+					}
+					res.redirect("/courses");
+				});
+			}
+			else {
+				res.redirect("/auth/login#register");
+				console.log("error error")
+			}
 		}
-		res.redirect("/courses");
-	});
+		else {
+			res.redirect("/auth/login#register");
+			console.log("error")
+		}
+	}
+	catch(err) {
+		console.log(err);
+	}
+
+	
+});
+
+router.post("/register", async (req, res) => {
+	try {
+		const {name, email, password, repeat} = req.body;
+		const candidate = await User.findOne({email});
+
+		if(candidate) {
+			res.redirect("/auth/login#register");
+		}
+		else {
+			const hashPassword = await bcrypt.hash(password, 10);
+			const user = new User({ name, email, password: hashPassword, cart: { items: [] } });
+			await user.save();
+			res.redirect("/auth/login#login");
+		}
+	}
+	catch(err) {
+		console.log(err);
+	}
 });
 
 router.get("/logout", async (req, res) => {

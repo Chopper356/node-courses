@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 3000
 const app = express();
 const mongoose = require('mongoose');
 const session = require("express-session");
+const MongoStore = require("connect-mongodb-session")(session);
 
 const homeRoutes = require("./routes/home");
 const cardRoutes = require("./routes/card");
@@ -14,6 +15,14 @@ const coursesRoutes = require("./routes/courses");
 const ordersRoutes = require("./routes/orders");
 const authRoutes = require("./routes/auth");
 const varMidleware = require("./middleware/variables");
+const userMiddleWare = require("./middleware/user");
+
+const MONGODB_URI = "mongodb://localhost:27017/shop";
+
+const store = new MongoStore ({
+	collection: "sessions",
+	uri: MONGODB_URI,
+});
 
 const hbs = exphbs.create({
 	defaultLayout: "main",
@@ -33,12 +42,14 @@ app.set("views", "views");
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({extended: true}));
-app.use(session({
+app.use(session ({
 	secret: "vlas lox",
 	resave: false,
-	saveUninitialized: false
+	saveUninitialized: false,
+	store
 }));
 app.use(varMidleware);
+app.use(userMiddleWare);
 
 app.use("/", homeRoutes);
 app.use("/courses", coursesRoutes);
@@ -50,9 +61,8 @@ app.use("/auth", authRoutes);
 async function start() {
 
 	try {
-		const url = "mongodb://localhost:27017/shop";
 
-		await mongoose.connect(url, {
+		await mongoose.connect(MONGODB_URI, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 			useFindAndModify: false
