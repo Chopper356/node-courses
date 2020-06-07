@@ -24,6 +24,14 @@
 
 					<input type="hidden" name="_csrf" value="{{csrf}}">
 
+					{{#if errorLogin}}
+						<p>{{errorLogin}} <a href="/auth/login#register">REGISTER</a></p>
+					{{/if}}
+
+					{{#if errorLoginPass}}
+						<p>{{errorLoginPass}}</p>
+					{{/if}}
+
 					<button type="submit" class="btn btm-primary btn-submit">Login</button>
 				</form>
 			</div>
@@ -59,7 +67,9 @@
 					</div>
 
 					<input type="hidden" name="_csrf" value="{{csrf}}">
-
+					{{#if errorRegister}}
+						<p>{{errorRegister}} <a href="/auth/login">LOGIN</a></p>
+					{{/if}}
 					<button type="submit" class="btn btm-primary btn-submit">Register</button>
 				</form>
 			</div>

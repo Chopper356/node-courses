@@ -7,7 +7,10 @@ const router = new Router();
 router.get("/login", async (req, res) => {
 	res.render("auth/login", {
 		title: "Authorization",
-		isLogin: true
+		isLogin: true,
+		errorLogin: req.flash("errorLogin"),
+		errorLoginPass: req.flash("errorLoginPass"),
+		errorRegister: req.flash("errorRegister")
 	});
 });
 
@@ -19,7 +22,7 @@ router.post("/login", async (req, res) => {
 
 		if(candidate) {
 			const areSame = await bcrypt.compare(password, candidate.password);
-
+			
 			if(areSame) {
 				req.session.user = candidate;
 				req.session.isAuthen = true;
@@ -32,13 +35,13 @@ router.post("/login", async (req, res) => {
 				});
 			}
 			else {
-				res.redirect("/auth/login#register");
-				console.log("error error")
+				req.flash("errorLoginPass", "Password is incorrect.")
+				res.redirect("/auth/login#login");
 			}
 		}
 		else {
-			res.redirect("/auth/login#register");
-			console.log("error")
+			req.flash("errorLogin", "This user does not exist.")
+			res.redirect("/auth/login#login");
 		}
 	}
 	catch(err) {
@@ -54,6 +57,7 @@ router.post("/register", async (req, res) => {
 		const candidate = await User.findOne({email});
 
 		if(candidate) {
+			req.flash("errorRegister", "A user with this email already exists, try another one or log in to your account.");
 			res.redirect("/auth/login#register");
 		}
 		else {

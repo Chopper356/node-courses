@@ -2,6 +2,7 @@ const express = require("express")
 const exphbs = require("express-handlebars");
 const path = require("path");
 const csrf = require("csurf");
+const flash = require("connect-flash");
 const PORT = process.env.PORT || 3000
 const app = express();
 const mongoose = require('mongoose');
@@ -11,18 +12,16 @@ const MongoStore = require("connect-mongodb-session")(session);
 const homeRoutes = require("./routes/home");
 const cardRoutes = require("./routes/card");
 const addRoutes = require("./routes/add");
-const User = require("./models/user");
 const coursesRoutes = require("./routes/courses");
 const ordersRoutes = require("./routes/orders");
 const authRoutes = require("./routes/auth");
 const varMidleware = require("./middleware/variables");
 const userMiddleWare = require("./middleware/user");
-
-const MONGODB_URI = "mongodb://localhost:27017/shop";
+const keys = require("./keys");
 
 const store = new MongoStore ({
 	collection: "sessions",
-	uri: MONGODB_URI,
+	uri: keys.MONGODB_URI,
 });
 
 const hbs = exphbs.create({
@@ -44,12 +43,13 @@ app.set("views", "views");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({extended: true}));
 app.use(session ({
-	secret: "vlas lox",
+	secret: keys.SESSION_SECRET,
 	resave: false,
 	saveUninitialized: false,
 	store
 }));
 app.use(csrf());
+app.use(flash());
 app.use(varMidleware);
 app.use(userMiddleWare);
 
@@ -64,7 +64,7 @@ async function start() {
 
 	try {
 
-		await mongoose.connect(MONGODB_URI, {
+		await mongoose.connect(keys.MONGODB_URI, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 			useFindAndModify: false
