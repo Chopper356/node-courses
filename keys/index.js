@@ -1,7 +1,7 @@
 module.exports = {
 	MONGODB_URI: "mongodb://localhost:27017/shop",
 	SESSION_SECRET: "vlas lox",
-	SENDGRID_API_KEY: "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",
-	EMAIL_FROM: "CourseAppShop@gmail.com",
+	SENDGRID_API_KEY: "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",
+	EMAIL_FROM: "vedmedenko.nikita345@gmail.com",
 	BASE_URL: "http://localhost:3000"
 }
