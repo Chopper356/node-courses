@@ -29,7 +29,8 @@ const hbs = exphbs.create({
 	extname: "hbs",
 	allowProtoPropertiesByDefault: true,
 	allowedProtoProperties: true,
-	allowProtoMethodsByDefault: true
+	allowProtoMethodsByDefault: true,
+	helpers: require("./utils/hbs-helpers"),
 
 });
 
