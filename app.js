@@ -17,6 +17,7 @@ const ordersRoutes = require("./routes/orders");
 const authRoutes = require("./routes/auth");
 const varMidleware = require("./middleware/variables");
 const userMiddleWare = require("./middleware/user");
+const errorHendler = require("./middleware/error");
 const keys = require("./keys");
 
 const store = new MongoStore ({
@@ -60,6 +61,8 @@ app.use("/add", addRoutes);
 app.use("/card", cardRoutes);
 app.use("/orders", ordersRoutes);
 app.use("/auth", authRoutes);
+
+app.use(errorHendler);
 
 async function start() {
 
