@@ -1,0 +1,35 @@
+<h1>Profile</h1>
+
+<div class="row">
+
+	<div class="col s6">
+	{{#if user.avatarUrl}}
+		<img class="avatar" src="/{{user.avatarUrl}}" alt="avatar-{{user.name}}">
+	{{else}}
+		<img class="avatar" src="https://bitsofco.de/content/images/2018/12/Screenshot-2018-12-16-at-21.06.29.png" alt="Avatar not found!">
+	{{/if}}
+	</div>
+	<div class="col s6">
+		<form action="/profile" method="POST" enctype="multipart/form-data">
+			<p>Your email: <strong>{{user.email}}</strong></p>
+			<div class="input-field ">
+				<input id="name" name="name" type="text" class="validate" value="{{user.name}}" required>
+				<label for="name">Name</label>
+				<span class="helper-text" data-error="Enter your name!"></span>
+			</div>
+
+			<div class="file-field input-field">
+				<div class="btn">
+					<span>Avatar</span>
+					<input type="file" name="avatar">
+				</div>
+				<div class="file-path-wrapper">
+					<input placeholder="Select your image" class="file-path validate" type="text">
+				</div>
+			</div>
+
+			<input type="hidden" name="_csrf" value="{{csrf}}">
+			<button class="btn btm-primary btn-profile">Submit</button>
+		</form>
+	</div>
+</div>

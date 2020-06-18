@@ -205,3 +205,12 @@
 .not-auth:hover {
 	border-bottom: 1px solid #e74c3c;
 }
+
+.avatar {
+	max-width: 300px;
+	height: auto;
+}
+
+.btn-profile {
+	margin-top: 10px;
+}

@@ -18,6 +18,8 @@ const authRoutes = require("./routes/auth");
 const varMidleware = require("./middleware/variables");
 const userMiddleWare = require("./middleware/user");
 const errorHendler = require("./middleware/error");
+const profileRoutes = require("./routes/profile");
+const fileMiddleware = require("./middleware/file");
 const keys = require("./keys");
 
 const store = new MongoStore ({
@@ -43,6 +45,7 @@ app.set("view engine", "hbs");
 app.set("views", "views");
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/images" ,express.static(path.join(__dirname, "images")));
 app.use(express.urlencoded({extended: true}));
 app.use(session ({
 	secret: keys.SESSION_SECRET,
@@ -50,6 +53,7 @@ app.use(session ({
 	saveUninitialized: false,
 	store
 }));
+app.use(fileMiddleware.single("avatar"));
 app.use(csrf());
 app.use(flash());
 app.use(varMidleware);
@@ -61,6 +65,7 @@ app.use("/add", addRoutes);
 app.use("/card", cardRoutes);
 app.use("/orders", ordersRoutes);
 app.use("/auth", authRoutes);
+app.use("/profile", profileRoutes);
 
 app.use(errorHendler);
 
