@@ -1,7 +1,6 @@
-module.exports = {
-	MONGODB_URI: "mongodb://localhost:27017/shop",
-	SESSION_SECRET: "vlas lox",
-	SENDGRID_API_KEY: "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",
-	EMAIL_FROM: "vedmedenko.nikita345@gmail.com",
-	BASE_URL: "http://localhost:3000"
+if (process.env.NODE_ENV === "production") {
+	module.exports = require("./keys-prod");
+}
+else {
+	module.exports = require("./keys-dev");
 }
