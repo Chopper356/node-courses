@@ -22,7 +22,7 @@
     "uuid": "^8.0.0"
   },
   "devDependencies": {
-    "express-handlebars": "^4.0.4",
+    "express-handlebars": "^5.3.1",
     "mongoose": "^5.9.15",
     "nodemon": "^2.0.3"
   },
